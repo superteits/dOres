@@ -73,4 +73,19 @@ public class HarvestUtil {
         return 0;
     }
 
+    /**
+     * Simple handler to get the layer of the block.
+     * @param blockPosY - Postion of the block in Y axis.
+     * @return int - The layer.
+     */
+    public int getLayer(int blockPosY) {
+        if(blockPosY <= 12)
+            return 1;
+        else if(blockPosY <= 29)
+            return 2;
+        else if(blockPosY <= 63)
+            return 3;
+        return 0;
+    }
+
 }

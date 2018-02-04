@@ -29,7 +29,7 @@ public class DropItemDestructListener {
 
     @Listener
     public void onDrop(DropItemEvent.Destruct e, @Root BlockSnapshot blockSnapshot) {
-        if(DOres.getInstance().getAffectedBlockList().contains(blockSnapshot.getState().getType()))
+        if(DOres.getInstance().getBlockedTypes().contains(blockSnapshot.getState().getType()))
             e.setCancelled(true);
     }
 

@@ -32,6 +32,7 @@ import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class InfoCommand {
 
