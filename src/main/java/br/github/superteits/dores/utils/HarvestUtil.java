@@ -20,12 +20,12 @@
 package br.github.superteits.dores.utils;
 
 import com.pixelmonmod.pixelmon.items.tools.GenericPickaxe;
-import net.minecraft.init.Enchantments;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.enchantment.Enchantment;
+import org.spongepowered.api.item.enchantment.EnchantmentTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.HashSet;
@@ -41,10 +41,10 @@ public class HarvestUtil {
     public int handlePickaxeEnchantments(ItemStack itemStack) {
         if (itemStack.get(Keys.ITEM_ENCHANTMENTS).isPresent()) {
             HashSet<Enchantment> enchantmentSet = new HashSet<Enchantment>(itemStack.get(Keys.ITEM_ENCHANTMENTS).get());
-            if (!enchantmentSet.contains(Enchantments.FORTUNE))
+            if (!enchantmentSet.contains(EnchantmentTypes.FORTUNE))
                 return 1;
             for (Enchantment enchantment : enchantmentSet) {
-                if (enchantment.equals(Enchantments.FORTUNE))
+                if (enchantment.equals(EnchantmentTypes.FORTUNE))
                     return enchantment.getLevel() + 1;
             }
         }

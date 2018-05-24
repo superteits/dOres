@@ -19,10 +19,6 @@
 
 package br.github.superteits.dores.commands;
 
-import br.github.superteits.dores.commands.HelpCommand;
-import br.github.superteits.dores.commands.InfoCommand;
-import br.github.superteits.dores.commands.SetDefaultDropQuantityCommand;
-import br.github.superteits.dores.commands.SetDropRateMultiplierCommand;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.text.Text;
 

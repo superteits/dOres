@@ -22,14 +22,9 @@ package br.github.superteits.dores.listeners;
 import br.github.superteits.dores.DOres;
 import br.github.superteits.dores.utils.CustomOre;
 import br.github.superteits.dores.utils.HarvestUtil;
-import com.pixelmonmod.pixelmon.config.PixelmonBlocks;
-import com.pixelmonmod.pixelmon.config.PixelmonItems;
-import com.pixelmonmod.pixelmon.items.PixelmonItem;
-import net.minecraft.init.Biomes;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.Item;
@@ -37,15 +32,10 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.filter.cause.First;
-import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
-import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.chat.ChatTypes;
-import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.biome.BiomeTypes;
-
-import java.util.Optional;
 
 public class ChangeBlockBreakListener {
 
