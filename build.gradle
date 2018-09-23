@@ -15,21 +15,16 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 group 'br.github.superteits'
-version '1.0.0-1.12.2'
+version '1.1.0-1.12.2'
 archivesBaseName = "dOres"
 
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
-}
+sourceCompatibility = "1.8"
 compileJava.options.encoding = "UTF-8"
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
 
 minecraft {
-    version = "1.12.2-14.23.1.2587"
+    version = "1.12.2-14.23.4.2705"
     runDir = "run"
-    mappings = "snapshot_20171217"
+    mappings = "stable_39"
 }
 
 repositories {
@@ -41,8 +36,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT:shaded'
-    compile files('libs/Pixelmon-6.0.1.jar')
+    compile 'org.spongepowered:spongeapi:7.1.0'
 }
 
 processResources {

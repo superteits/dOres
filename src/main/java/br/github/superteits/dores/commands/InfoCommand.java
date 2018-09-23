@@ -20,6 +20,7 @@
 package br.github.superteits.dores.commands;
 
 import br.github.superteits.dores.DOres;
+import br.github.superteits.dores.config.Config;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -40,8 +41,8 @@ public class InfoCommand {
             .header(TextSerializers.formattingCode('&').deserialize("Descrição - Info atual - Padrão"))
             .padding(Text.of(TextColors.GOLD, "-"))
             .contents(Arrays.asList(
-                    TextSerializers.formattingCode('&').deserialize("Taxa de Drop - " + DOres.getInstance().getDropRate() + " - 1.0"),
-                    TextSerializers.formattingCode('&').deserialize("Quantidade de Drop - " + DOres.getInstance().getDropQuantity() + " - 2")))
+                    TextSerializers.formattingCode('&').deserialize("Taxa de Drop - " + Config.getDropRate() + " - 1.0"),
+                    TextSerializers.formattingCode('&').deserialize("Quantidade de Drop - " + Config.getDropQuantity() + " - 2")))
             .build();
 
     private CommandSpec commandSpec = CommandSpec.builder()

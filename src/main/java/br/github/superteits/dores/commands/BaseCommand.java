@@ -26,10 +26,8 @@ public class BaseCommand {
 
     private CommandSpec commandSpec = CommandSpec.builder()
             .description(Text.of("Base command of dOres"))
-            .child(new SetDropRateMultiplierCommand().getCommandSpec(), "rate")
-            .child(new SetDefaultDropQuantityCommand().getCommandSpec(), "quantity")
-            .child(new HelpCommand().getCommandSpec(), "help")
             .child(new InfoCommand().getCommandSpec(), "info")
+            .child(new DebugCommand().getCommandSpec(), "debug")
             .build();
 
     public CommandSpec getCommandSpec() {

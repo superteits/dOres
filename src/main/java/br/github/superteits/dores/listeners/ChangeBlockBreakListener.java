@@ -20,6 +20,7 @@
 package br.github.superteits.dores.listeners;
 
 import br.github.superteits.dores.DOres;
+import br.github.superteits.dores.config.Config;
 import br.github.superteits.dores.utils.CustomOre;
 import br.github.superteits.dores.utils.HarvestUtil;
 import org.spongepowered.api.block.BlockSnapshot;
@@ -32,8 +33,10 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.filter.cause.First;
+import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.chat.ChatTypes;
 import org.spongepowered.api.world.biome.BiomeTypes;
 
@@ -42,21 +45,22 @@ public class ChangeBlockBreakListener {
     HarvestUtil harvestUtil = new HarvestUtil();
 
     @Listener
-    public void onBreak(ChangeBlockEvent.Break event, @First Player p) {
+    public void onBreak(ChangeBlockEvent.Break event, @Root Player p) {
+        Long start = System.currentTimeMillis();
         if (event.getTransactions().get(0).getOriginal().getState().getType().equals(BlockTypes.STONE)) {
             if (p.getItemInHand(HandTypes.MAIN_HAND).isPresent()) {
                 ItemStack itemStack = p.getItemInHand(HandTypes.MAIN_HAND).get();
                 if (harvestUtil.getHarvestLevel(itemStack.getType()) != 0) {
                     BlockSnapshot blockSnapshot = event.getTransactions().get(0).getOriginal();
                     int chance = DOres.getInstance().getRNG().nextInt(10000);
-                    for(CustomOre customOre : DOres.getInstance().getLayers().get(harvestUtil.getLayer(blockSnapshot.getPosition().getY()))) {
-                        if(chance < customOre.getChance() * DOres.getInstance().getDropRate()) {
+                    for(CustomOre customOre : Config.getChances().get(harvestUtil.getLayer(blockSnapshot.getPosition().getY()))) {
+                        if(chance < customOre.getChance() * Config.getDropRate()) {
                             if(harvestUtil.getHarvestLevel(itemStack.getType()) >= customOre.getHarvestLevel()) {
                                 if(customOre.getItemStack().getType().equals(ItemTypes.EMERALD) &&
                                         !blockSnapshot.getLocation().get().getBiome().equals(BiomeTypes.EXTREME_HILLS))
                                     return;
                                 ItemStack itemStackToDrop = customOre.getItemStack();
-                                itemStackToDrop.setQuantity(DOres.getInstance().getDropQuantity() * harvestUtil.handlePickaxeEnchantments(itemStack));
+                                itemStackToDrop.setQuantity(Config.getDropQuantity() * harvestUtil.handlePickaxeEnchantments(itemStack));
                                 Item itemEntity = (Item) p.getWorld().createEntity(EntityTypes.ITEM, blockSnapshot.getPosition());
                                 itemEntity.offer(Keys.REPRESENTED_ITEM, itemStackToDrop.createSnapshot());
                                 p.getWorld().spawnEntity(itemEntity);
@@ -68,6 +72,8 @@ public class ChangeBlockBreakListener {
                 }
             }
         }
+        if(DOres.getInstance().getDebug().contains(p.getUniqueId()))
+            p.sendMessage(Text.of("Breaking that block took " + (System.currentTimeMillis() - start) + "ms."));
     }
 
 }

@@ -42,12 +42,16 @@ public class CustomOre {
         return chance;
     }
 
+    public void setChance(int chance) {
+        this.chance = chance;
+    }
+
     public int getHarvestLevel() {
         return harvestLevel;
     }
 
     public ItemStack getItemStack() {
-        return itemStack;
+        return itemStack.copy();
     }
 
     public Text getText() {
