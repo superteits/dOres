@@ -24,38 +24,25 @@ import br.github.superteits.dores.commands.TestCommand;
 import br.github.superteits.dores.config.Config;
 import br.github.superteits.dores.listeners.ChangeBlockBreakListener;
 import br.github.superteits.dores.listeners.DropItemDestructListener;
-import br.github.superteits.dores.listeners.SpawnEntityEventListener;
-import br.github.superteits.dores.utils.CustomOre;
+import br.github.superteits.dores.listeners.SpawnEntityListener;
 import com.google.inject.Inject;
-import com.pixelmonmod.pixelmon.config.PixelmonBlocks;
-import com.pixelmonmod.pixelmon.config.PixelmonItems;
-import com.pixelmonmod.pixelmon.items.PixelmonItem;
 import net.minecraft.launchwrapper.Launch;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.block.BlockType;
-import org.spongepowered.api.block.BlockTypes;
-import org.spongepowered.api.config.ConfigManager;
 import org.spongepowered.api.config.DefaultConfig;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
-import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 
 import java.nio.file.Path;
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.HashSet;
+import java.util.UUID;
 
 
 @Plugin (id = DOres.ID,
@@ -68,7 +55,7 @@ public class DOres {
 
 	public static final String ID = "dores";
 	public static final String NAME = "dOres";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.1.2";
 	public static final String AUTHOR = "Teits";
 
 	@Inject
@@ -94,7 +81,7 @@ public class DOres {
 		logger.info("Registering event listeners...");
 		Sponge.getEventManager().registerListeners(this, new ChangeBlockBreakListener());
 		Sponge.getEventManager().registerListeners(this, new DropItemDestructListener());
-		Sponge.getEventManager().registerListeners(this, new SpawnEntityEventListener());
+		Sponge.getEventManager().registerListeners(this, new SpawnEntityListener());
 	}
 
 	@Listener

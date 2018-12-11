@@ -19,7 +19,6 @@
 
 package br.github.superteits.dores.commands;
 
-import br.github.superteits.dores.DOres;
 import br.github.superteits.dores.config.Config;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;

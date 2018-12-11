@@ -41,11 +41,9 @@ public class HarvestUtil {
     public int handlePickaxeEnchantments(ItemStack itemStack) {
         if (itemStack.get(Keys.ITEM_ENCHANTMENTS).isPresent()) {
             HashSet<Enchantment> enchantmentSet = new HashSet<Enchantment>(itemStack.get(Keys.ITEM_ENCHANTMENTS).get());
-            if (!enchantmentSet.contains(EnchantmentTypes.FORTUNE))
-                return 1;
             for (Enchantment enchantment : enchantmentSet) {
-                if (enchantment.equals(EnchantmentTypes.FORTUNE))
-                    return enchantment.getLevel() + 1;
+                if (enchantment.getType().equals(EnchantmentTypes.FORTUNE))
+                    return enchantment.getLevel();
             }
         }
         return 1;

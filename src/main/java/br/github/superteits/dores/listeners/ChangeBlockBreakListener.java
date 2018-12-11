@@ -32,7 +32,6 @@ import org.spongepowered.api.entity.Item;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
-import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -53,19 +52,21 @@ public class ChangeBlockBreakListener {
                 if (harvestUtil.getHarvestLevel(itemStack.getType()) != 0) {
                     BlockSnapshot blockSnapshot = event.getTransactions().get(0).getOriginal();
                     int chance = DOres.getInstance().getRNG().nextInt(10000);
-                    for(CustomOre customOre : Config.getChances().get(harvestUtil.getLayer(blockSnapshot.getPosition().getY()))) {
-                        if(chance < customOre.getChance() * Config.getDropRate()) {
-                            if(harvestUtil.getHarvestLevel(itemStack.getType()) >= customOre.getHarvestLevel()) {
-                                if(customOre.getItemStack().getType().equals(ItemTypes.EMERALD) &&
-                                        !blockSnapshot.getLocation().get().getBiome().equals(BiomeTypes.EXTREME_HILLS))
-                                    return;
-                                ItemStack itemStackToDrop = customOre.getItemStack();
-                                itemStackToDrop.setQuantity(Config.getDropQuantity() * harvestUtil.handlePickaxeEnchantments(itemStack));
-                                Item itemEntity = (Item) p.getWorld().createEntity(EntityTypes.ITEM, blockSnapshot.getPosition());
-                                itemEntity.offer(Keys.REPRESENTED_ITEM, itemStackToDrop.createSnapshot());
-                                p.getWorld().spawnEntity(itemEntity);
-                                p.sendMessage(ChatTypes.ACTION_BAR, customOre.getText());
-                                break;
+                    if(harvestUtil.getLayer(blockSnapshot.getPosition().getY()) != 0) {
+                        for(CustomOre customOre : Config.getChances().get(harvestUtil.getLayer(blockSnapshot.getPosition().getY()))) {
+                            if(chance < customOre.getChance() * Config.getDropRate()) {
+                                if(harvestUtil.getHarvestLevel(itemStack.getType()) >= customOre.getHarvestLevel()) {
+                                    if(customOre.getItemStack().getType().equals(ItemTypes.EMERALD) &&
+                                            !blockSnapshot.getLocation().get().getBiome().equals(BiomeTypes.EXTREME_HILLS))
+                                        return;
+                                    ItemStack itemStackToDrop = customOre.getItemStack();
+                                    itemStackToDrop.setQuantity(Config.getDropQuantity() + harvestUtil.handlePickaxeEnchantments(itemStack));
+                                    Item itemEntity = (Item) p.getWorld().createEntity(EntityTypes.ITEM, blockSnapshot.getPosition());
+                                    itemEntity.offer(Keys.REPRESENTED_ITEM, itemStackToDrop.createSnapshot());
+                                    p.getWorld().spawnEntity(itemEntity);
+                                    p.sendMessage(ChatTypes.ACTION_BAR, customOre.getText());
+                                    break;
+                                }
                             }
                         }
                     }

@@ -19,18 +19,25 @@
 
 package br.github.superteits.dores.listeners;
 
-import br.github.superteits.dores.DOres;
 import br.github.superteits.dores.config.Config;
-import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.entity.SpawnEntityEvent;
-import org.spongepowered.api.event.filter.cause.Root;
 
-public class SpawnEntityEventListener {
+public class SpawnEntityListener {
 
     @Listener
-    public void onEntitySpawn(SpawnEntityEvent e, @Root BlockSnapshot blockSnapshot) {
-        if(Config.getBlocksBlacklist().contains(blockSnapshot.getState().getType()))
-            e.setCancelled(true);
+    public void onEntitySpawn(SpawnEntityEvent e) {
+        //Handle Hacked clients drops
+        e.getContext().get(EventContextKeys.SPAWN_TYPE).ifPresent(spawnType -> {
+            if (spawnType.getId().equals("sponge:block_spawning") ||
+                    spawnType.getId().equals("sponge:experience"))
+                e.setCancelled(true);
+        });
+        //Handle normal experience drop
+        e.getContext().get(EventContextKeys.BLOCK_HIT).ifPresent(blockSnapshot -> {
+            if(Config.getBlocksBlacklist().contains(blockSnapshot.getState().getType()))
+                e.setCancelled(true);
+        });
     }
 }

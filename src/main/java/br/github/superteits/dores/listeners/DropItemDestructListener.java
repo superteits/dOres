@@ -19,7 +19,6 @@
 
 package br.github.superteits.dores.listeners;
 
-import br.github.superteits.dores.DOres;
 import br.github.superteits.dores.config.Config;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.event.Listener;
