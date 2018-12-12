@@ -20,6 +20,7 @@
 package br.github.superteits.dores.listeners;
 
 import br.github.superteits.dores.config.Config;
+import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.entity.SpawnEntityEvent;
@@ -31,8 +32,10 @@ public class SpawnEntityListener {
         //Handle Hacked clients drops
         e.getContext().get(EventContextKeys.SPAWN_TYPE).ifPresent(spawnType -> {
             if (spawnType.getId().equals("sponge:block_spawning") ||
-                    spawnType.getId().equals("sponge:experience"))
-                e.setCancelled(true);
+                    spawnType.getId().equals("sponge:experience")) {
+                if (e.getCause().root() instanceof EntityPlayerMP)
+                    e.setCancelled(true);
+            }
         });
         //Handle normal experience drop
         e.getContext().get(EventContextKeys.BLOCK_HIT).ifPresent(blockSnapshot -> {
