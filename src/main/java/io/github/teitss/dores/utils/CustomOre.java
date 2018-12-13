@@ -17,7 +17,7 @@
  * along with dOres  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package br.github.superteits.dores.utils;
+package io.github.teitss.dores.utils;
 
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;

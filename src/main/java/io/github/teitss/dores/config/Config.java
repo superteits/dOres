@@ -1,7 +1,7 @@
-package br.github.superteits.dores.config;
+package io.github.teitss.dores.config;
 
-import br.github.superteits.dores.DOres;
-import br.github.superteits.dores.utils.CustomOre;
+import io.github.teitss.dores.DOres;
+import io.github.teitss.dores.utils.CustomOre;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;

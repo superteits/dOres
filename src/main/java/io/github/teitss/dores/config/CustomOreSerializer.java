@@ -1,7 +1,7 @@
-package br.github.superteits.dores.config;
+package io.github.teitss.dores.config;
 
-import br.github.superteits.dores.utils.CustomOre;
 import com.google.common.reflect.TypeToken;
+import io.github.teitss.dores.utils.CustomOre;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.spongepowered.api.item.inventory.ItemStack;
