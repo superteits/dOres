@@ -19,32 +19,27 @@
 
 package io.github.teitss.dores.listeners;
 
+import com.pixelmonmod.pixelmon.entities.custom.EntityPixelmonPainting;
 import io.github.teitss.dores.config.Config;
+import net.minecraft.entity.EntityTrackerEntry;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.cause.EventContextKeys;
+import org.spongepowered.api.event.cause.entity.spawn.SpawnType;
 import org.spongepowered.api.event.entity.SpawnEntityEvent;
+import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.text.Text;
+
+import java.util.Optional;
 
 public class SpawnEntityListener {
 
     @Listener
     public void onEntitySpawn(SpawnEntityEvent e) {
-        //Handle Hacked clients drops
-        e.getContext().get(EventContextKeys.SPAWN_TYPE).ifPresent(spawnType -> {
-            if (spawnType.getId().equals("sponge:block_spawning") ||
-                    spawnType.getId().equals("sponge:experience")) {
-                if (e.getCause().root() instanceof EntityPlayerMP) {
-                    e.setCancelled(true);
-                    Player player = (Player) e.getCause().root();
-                    Sponge.getServer().getConsole().sendMessage(Text.of("[FASTBREAK-ALERT] " + player.getName() +
-                            " " + e.getEntities().get(0).toString()));
-                }
-            }
-        });
-        //Handle normal experience drop
         e.getContext().get(EventContextKeys.BLOCK_HIT).ifPresent(blockSnapshot -> {
             if(Config.getBlocksBlacklist().contains(blockSnapshot.getState().getType()))
                 e.setCancelled(true);
