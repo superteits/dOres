@@ -9,9 +9,11 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.network.play.server.SPacketTitle;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.spongepowered.api.entity.living.player.Player;
 
 public class HarvestDropsListener {
 
@@ -46,6 +48,14 @@ public class HarvestDropsListener {
                         !e.getWorld().getBiome(e.getPos()).equals(Biomes.EXTREME_HILLS)) continue;
 
                 ItemStack drop = customOre.getItemStack();
+
+                //Drops smelted version of an ore if player has permission
+                if (((Player)player).hasPermission("dores.smelted")) {
+                    ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(drop);
+                    if (!smelted.equals(ItemStack.EMPTY))
+                        drop = smelted;
+                }
+
                 drop.setCount(Config.getDropQuantity() + e.getFortuneLevel());
                 e.getDrops().add(drop);
                 player.connection.sendPacket(new SPacketTitle(SPacketTitle.Type.ACTIONBAR, customOre.getText()));

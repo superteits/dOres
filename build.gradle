@@ -11,14 +11,14 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 group 'br.github.superteits'
-version '1.1.6'
+version '1.4.0'
 archivesBaseName = "dOres"
 
 sourceCompatibility = "1.8"
 compileJava.options.encoding = "UTF-8"
 
 minecraft {
-    version = "1.12.2-14.23.4.2705"
+    version = "1.12.2-14.23.5.2768"
     runDir = "run"
     mappings = "stable_39"
 }
@@ -32,7 +32,10 @@ repositories {
 }
 
 dependencies {
-    compile 'org.spongepowered:spongeapi:7.1.0'
+    compile 'org.spongepowered:spongeapi:7.2.0'
+    compile ('org.spongepowered:spongecommon:7.0.0-SNAPSHOT:dev') {
+        exclude group: 'org.spongepowered', module: 'testplugins'
+    }
 }
 
 processResources {
