@@ -23,10 +23,9 @@ import com.google.inject.Inject;
 import io.github.teitss.dores.commands.BaseCommand;
 import io.github.teitss.dores.commands.TestCommand;
 import io.github.teitss.dores.config.Config;
-import io.github.teitss.dores.listeners.ChangeBlockBreakListener;
-import io.github.teitss.dores.listeners.DropItemDestructListener;
-import io.github.teitss.dores.listeners.SpawnEntityListener;
+import io.github.teitss.dores.listeners.*;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.MinecraftForge;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -55,7 +54,7 @@ public class DOres {
 
 	public static final String ID = "dores";
 	public static final String NAME = "dOres";
-	public static final String VERSION = "1.1.6";
+	public static final String VERSION = "1.3.1";
 	public static final String AUTHOR = "Teits";
 
 	@Inject
@@ -79,9 +78,8 @@ public class DOres {
 		instance = this;
 		logger.info("Loading dOres...");
 		logger.info("Registering event listeners...");
-		Sponge.getEventManager().registerListeners(this, new ChangeBlockBreakListener());
-		Sponge.getEventManager().registerListeners(this, new DropItemDestructListener());
-		Sponge.getEventManager().registerListeners(this, new SpawnEntityListener());
+		MinecraftForge.EVENT_BUS.register(new HarvestDropsListener());
+		MinecraftForge.EVENT_BUS.register(new BreakListener());
 	}
 
 	@Listener

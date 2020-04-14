@@ -1,27 +1,24 @@
 package io.github.teitss.dores.config;
 
 import io.github.teitss.dores.DOres;
-import io.github.teitss.dores.utils.CustomOre;
+import io.github.teitss.dores.CustomOre;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
-import org.spongepowered.api.block.BlockType;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
+import java.util.*;
 
 public class Config {
 
     private static HashMap<Integer, LinkedHashSet<CustomOre>> chances = new HashMap<>();
-    private static ArrayList<BlockType> blocksBlacklist = new ArrayList<>();
+    private static HashSet<String> blocksBlacklist = new HashSet<>();
+    private static HashSet<String> whitelistItems = new HashSet<>();
     private static float dropRate;
     private static int dropQuantity;
 
@@ -70,7 +67,11 @@ public class Config {
             }
             blocksBlacklist.clear();
             configNode.getNode("blacklist").getChildrenList().forEach(item -> {
-                blocksBlacklist.add(Sponge.getRegistry().getType(BlockType.class, item.getString()).get());
+                blocksBlacklist.add(item.getString());
+            });
+            whitelistItems.clear();
+            configNode.getNode("whitelist").getChildrenList().forEach(item -> {
+                whitelistItems.add(item.getString());
             });
             dropRate = configNode.getNode("drop-rate").getFloat();
             dropQuantity = configNode.getNode("drop-quantity").getInt();
@@ -96,8 +97,12 @@ public class Config {
         return chances;
     }
 
-    public static ArrayList<BlockType> getBlocksBlacklist() {
+    public static HashSet<String> getBlocksBlacklist() {
         return blocksBlacklist;
+    }
+
+    public static HashSet<String> getWhitelistItems() {
+        return whitelistItems;
     }
 
     public static float getDropRate() {

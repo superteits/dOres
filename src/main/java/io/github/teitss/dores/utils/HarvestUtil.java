@@ -20,6 +20,8 @@
 package io.github.teitss.dores.utils;
 
 import com.pixelmonmod.pixelmon.items.tools.GenericPickaxe;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemType;
@@ -33,40 +35,23 @@ import java.util.HashSet;
 public class HarvestUtil {
 
     /**
-     * Handles pickaxe enchantments, needs {@link #getHarvestLevel(ItemType)} safety check.
-     *
-     * @param itemStack - {@link ItemStack} in {@link Player} hand.
-     * @return int - Value to be used as multiplier in {@link ItemStack} creation.
-     */
-    public int handlePickaxeEnchantments(ItemStack itemStack) {
-        if (itemStack.get(Keys.ITEM_ENCHANTMENTS).isPresent()) {
-            HashSet<Enchantment> enchantmentSet = new HashSet<Enchantment>(itemStack.get(Keys.ITEM_ENCHANTMENTS).get());
-            for (Enchantment enchantment : enchantmentSet) {
-                if (enchantment.getType().equals(EnchantmentTypes.FORTUNE))
-                    return enchantment.getLevel();
-            }
-        }
-        return 1;
-    }
-
-    /**
      * Handles pickaxe custom harvest values.
      *
-     * @param itemType - {@link ItemType} in {@link Player} hand.
+     * @param item - {@link ItemType} in {@link Player} hand.
      * @return int - Custom harvest value.
      */
-    public int getHarvestLevel(ItemType itemType) {
-        if (itemType.equals(ItemTypes.WOODEN_PICKAXE))
+    public static int getHarvestLevel(Item item) {
+        if (item.equals(Items.WOODEN_PICKAXE))
             return 1;
-        if (itemType.equals(ItemTypes.STONE_PICKAXE))
+        if (item.equals(Items.STONE_PICKAXE))
             return 2;
-        if (itemType.equals(ItemTypes.IRON_PICKAXE))
+        if (item.equals(Items.IRON_PICKAXE))
             return 3;
-        if (itemType.equals(ItemTypes.GOLDEN_PICKAXE))
+        if (item.equals(Items.GOLDEN_PICKAXE))
             return 4;
-        if (itemType.equals(ItemTypes.DIAMOND_PICKAXE))
+        if (item.equals(Items.DIAMOND_PICKAXE))
             return 5;
-        if (itemType instanceof GenericPickaxe)
+        if (item instanceof GenericPickaxe)
             return 6;
         return 0;
     }
@@ -76,7 +61,7 @@ public class HarvestUtil {
      * @param blockPosY - Postion of the block in Y axis.
      * @return int - The layer.
      */
-    public int getLayer(int blockPosY) {
+    public static int getLayer(int blockPosY) {
         if(blockPosY <= 12)
             return 1;
         else if(blockPosY <= 29)

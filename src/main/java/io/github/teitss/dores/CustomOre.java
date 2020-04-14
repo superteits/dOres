@@ -17,9 +17,10 @@
  * along with dOres  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.teitss.dores.utils;
+package io.github.teitss.dores;
 
-import org.spongepowered.api.item.inventory.ItemStack;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import org.spongepowered.api.text.Text;
 
 import java.util.Objects;
@@ -28,10 +29,10 @@ public class CustomOre {
 
     private int chance;
     private ItemStack itemStack;
-    private Text text;
+    private ITextComponent text;
     private int harvestLevel;
 
-    public CustomOre(int chance, int harvestLevel, ItemStack itemStack, Text text) {
+    public CustomOre(int chance, int harvestLevel, ItemStack itemStack, ITextComponent text) {
         this.chance = chance;
         this.harvestLevel = harvestLevel;
         this.itemStack = itemStack;
@@ -54,7 +55,7 @@ public class CustomOre {
         return itemStack.copy();
     }
 
-    public Text getText() {
+    public ITextComponent getText() {
         return text;
     }
 
@@ -67,7 +68,7 @@ public class CustomOre {
     public boolean equals(Object obj) {
         if(obj instanceof CustomOre) {
             CustomOre other = (CustomOre) obj;
-            return other.getItemStack().equalTo(this.getItemStack()) &&
+            return other.getItemStack().isItemEqual(this.getItemStack()) &&
                     other.getChance() == this.getChance();
         }
         return false;
