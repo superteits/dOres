@@ -28,6 +28,7 @@ public class BaseCommand {
             .description(Text.of("Base command of dOres"))
             .child(new InfoCommand().getCommandSpec(), "info")
             .child(new DebugCommand().getCommandSpec(), "debug")
+            .child(new SwitchSmeltCommand().getCommandSpec(), "smelt")
             .build();
 
     public CommandSpec getCommandSpec() {

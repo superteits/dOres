@@ -54,7 +54,7 @@ public class DOres {
 
 	public static final String ID = "dores";
 	public static final String NAME = "dOres";
-	public static final String VERSION = "1.4.0";
+	public static final String VERSION = "1.4.1";
 	public static final String AUTHOR = "Teits";
 
 	@Inject
@@ -71,6 +71,7 @@ public class DOres {
 	private	static DOres instance;
 	private SecureRandom random = new SecureRandom();
 	private HashSet<UUID> debug = new HashSet<>();
+	private HashSet<UUID> isSmelting = new HashSet<>();
 	private boolean ambienteDev = isDevEnv(Launch.blackboard.get("fml.deobfuscatedEnvironment"));
 	
 	@Listener
@@ -111,6 +112,10 @@ public class DOres {
 
 	public Logger getLogger() {
 		return logger;
+	}
+
+	public HashSet<UUID> getIsSmelting() {
+		return isSmelting;
 	}
 
 	private boolean isDevEnv(Object object) {

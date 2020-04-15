@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 group 'br.github.superteits'
-version '1.4.0'
+version '1.4.1'
 archivesBaseName = "dOres"
 
 sourceCompatibility = "1.8"

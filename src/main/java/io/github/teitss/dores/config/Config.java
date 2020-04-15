@@ -21,6 +21,8 @@ public class Config {
     private static HashSet<String> whitelistItems = new HashSet<>();
     private static float dropRate;
     private static int dropQuantity;
+    private static String smeltOnMessage;
+    private static String smeltOffMessage;
 
     static {
         chances.put(1, new LinkedHashSet<>());
@@ -75,6 +77,8 @@ public class Config {
             });
             dropRate = configNode.getNode("drop-rate").getFloat();
             dropQuantity = configNode.getNode("drop-quantity").getInt();
+            smeltOffMessage = configNode.getNode("smeltOff").getString();
+            smeltOnMessage = configNode.getNode("smeltOn").getString();
             DOres.getInstance().getLogger().info("Configuration loaded with success!");
         } catch (IOException e) {
             e.printStackTrace();
@@ -111,6 +115,14 @@ public class Config {
 
     public static int getDropQuantity() {
         return dropQuantity;
+    }
+
+    public static String getSmeltOnMessage() {
+        return smeltOnMessage;
+    }
+
+    public static String getSmeltOffMessage() {
+        return smeltOffMessage;
     }
 
     private void handleChance(CustomOre customOre, int layer, int currentChance) {
