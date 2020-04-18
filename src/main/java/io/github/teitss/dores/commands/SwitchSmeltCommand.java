@@ -10,6 +10,7 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
 public class SwitchSmeltCommand {
 
@@ -22,12 +23,12 @@ public class SwitchSmeltCommand {
                     if (src instanceof Player) {
                         if(DOres.getInstance().getIsSmelting().contains(((Player) src).getUniqueId())) {
                             DOres.getInstance().getIsSmelting().remove(((Player) src).getUniqueId());
-                            src.sendMessage(Text.of(Config.getSmeltOffMessage()));
+                            src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(Config.getSmeltOffMessage()));
                         }
 
                         else {
                             DOres.getInstance().getIsSmelting().add(((Player) src).getUniqueId());
-                            src.sendMessage(Text.of(Config.getSmeltOnMessage()));
+                            src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(Config.getSmeltOnMessage()));
                         }
 
                     }

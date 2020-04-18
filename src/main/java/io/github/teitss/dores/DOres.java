@@ -54,7 +54,7 @@ public class DOres {
 
 	public static final String ID = "dores";
 	public static final String NAME = "dOres";
-	public static final String VERSION = "1.4.1";
+	public static final String VERSION = "1.4.3";
 	public static final String AUTHOR = "Teits";
 
 	@Inject
