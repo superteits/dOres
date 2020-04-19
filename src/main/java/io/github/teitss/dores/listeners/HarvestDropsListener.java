@@ -52,7 +52,7 @@ public class HarvestDropsListener {
                 //Drops smelted version of an ore if player has permission
                 if (DOres.getInstance().getIsSmelting().contains(player.getUniqueID())) {
                     ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(drop).copy();
-                    if (!smelted.equals(ItemStack.EMPTY))
+                    if (!smelted.getItem().equals(Items.AIR))
                         drop = smelted;
                 }
 
