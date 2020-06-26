@@ -21,10 +21,9 @@ package io.github.teitss.dores;
 
 import com.google.inject.Inject;
 import io.github.teitss.dores.commands.BaseCommand;
-import io.github.teitss.dores.commands.TestCommand;
 import io.github.teitss.dores.config.Config;
-import io.github.teitss.dores.listeners.*;
-import net.minecraft.launchwrapper.Launch;
+import io.github.teitss.dores.listeners.BreakListener;
+import io.github.teitss.dores.listeners.HarvestDropsListener;
 import net.minecraftforge.common.MinecraftForge;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -54,7 +53,7 @@ public class DOres {
 
 	public static final String ID = "dores";
 	public static final String NAME = "dOres";
-	public static final String VERSION = "1.4.4";
+	public static final String VERSION = "1.5.0";
 	public static final String AUTHOR = "Teits";
 
 	@Inject
@@ -72,7 +71,6 @@ public class DOres {
 	private SecureRandom random = new SecureRandom();
 	private HashSet<UUID> debug = new HashSet<>();
 	private HashSet<UUID> isSmelting = new HashSet<>();
-	private boolean ambienteDev = isDevEnv(Launch.blackboard.get("fml.deobfuscatedEnvironment"));
 	
 	@Listener
 	public void onGameInit(GameInitializationEvent e) {
@@ -89,8 +87,6 @@ public class DOres {
 		Config.install(path, configManager);
 		logger.info("Registering commands...");
 		Sponge.getCommandManager().register(this, new BaseCommand().getCommandSpec(), "dores", "do", "damno");
-		if(ambienteDev)
-			Sponge.getCommandManager().register(this, new TestCommand().getCommandSpec(), "test");
 	}
 
 	@Listener
@@ -118,8 +114,7 @@ public class DOres {
 		return isSmelting;
 	}
 
-	private boolean isDevEnv(Object object) {
-		return java.lang.Boolean.valueOf(object.toString());
+	public ConfigurationLoader<CommentedConfigurationNode> getConfigManager() {
+		return configManager;
 	}
-
 }

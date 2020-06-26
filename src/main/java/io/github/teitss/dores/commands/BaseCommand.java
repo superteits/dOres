@@ -29,6 +29,7 @@ public class BaseCommand {
             .child(new InfoCommand().getCommandSpec(), "info")
             .child(new DebugCommand().getCommandSpec(), "debug")
             .child(new SwitchSmeltCommand().getCommandSpec(), "smelt")
+            .child(new ConfigCommand().getCommandSpec(), "config")
             .build();
 
     public CommandSpec getCommandSpec() {

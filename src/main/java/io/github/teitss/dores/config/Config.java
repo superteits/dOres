@@ -97,6 +97,17 @@ public class Config {
         }
     }
 
+    public static void save(ConfigurationLoader<CommentedConfigurationNode> configManager) {
+        try {
+            ConfigurationNode configNode = configManager.load();
+            configNode.getNode("drop-rate").setValue(dropRate);
+            configNode.getNode("drop-quantity").setValue(dropQuantity);
+            configManager.save(configNode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static HashMap<Integer, LinkedHashSet<CustomOre>> getChances() {
         return chances;
     }
@@ -125,8 +136,11 @@ public class Config {
         return smeltOffMessage;
     }
 
-    private void handleChance(CustomOre customOre, int layer, int currentChance) {
-
+    public static void setDropRate(float dropRate) {
+        Config.dropRate = dropRate;
     }
 
+    public static void setDropQuantity(int dropQuantity) {
+        Config.dropQuantity = dropQuantity;
+    }
 }
